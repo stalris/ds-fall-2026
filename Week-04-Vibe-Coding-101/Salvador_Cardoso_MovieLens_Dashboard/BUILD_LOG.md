@@ -345,3 +345,54 @@ No bug reported. The student requested a different repository destination: their
 
 - All seven checks passed again from the nested project folder; syntax compilation passed. Both widgets and all four calculations were rechecked before publication.
 - The GitHub commit and repository history provide the publication record; no Community Cloud deployment is claimed by this iteration.
+
+
+## Iteration 3 — Deployment startup troubleshooting, October 1, 2026
+
+### Exact user messages, in order
+
+```text
+I... think I followed the instructions. However, I don't think the app is being displayed yet. It's been 30 minutes since I followed your instructions. Here is the link to the app, incase you need it, along with a ss
+
+https://week4app.streamlit.app/
+```
+
+The first message included a screenshot of Streamlit's "taking longer than normal" startup page.
+
+```text
+where do I find week4app and subsequently open it? I just see a link to the app, which obviously doesn't work. Don't see a 'manage app' either. I do see a 'reboot' though.
+```
+
+This message included a screenshot of the Community Cloud My apps page showing the correct repository, main branch, and dashboard entrypoint.
+
+```text
+just clicked reboot. if that doesn't work, what should I do? should I create a new app and refer to the same github repo?
+```
+
+```text
+! I just checked the settings, and I had 3.14 selected. I haven't deleted the old one yet. I just switched to 3.12. do you think that was the problem? was the app specifically using 3.12?
+```
+
+```text
+it works! Thanks a lot :)
+```
+
+### Issue and actual process
+
+- The student reported a startup wait lasting 30 minutes. The assistant observed the same waiting page at the public app URL and verified that GitHub's app.py and requirements.txt still matched the tested files.
+- The assistant could not retrieve the deployment logs: the management-page browser request timed out. The public waiting screen did not expose a cause.
+- Initial advice to open the app and click Manage app was not useful while startup remained stuck before the control appeared. The assistant corrected the guidance using the student's screenshot and pointed to the app row's overflow menu and Reboot action.
+- The student clicked Reboot. When asked about next steps, the assistant described redeploying from the same repository if rebooting did not help; no deletion or redeployment was reported.
+- The student then discovered that Python 3.14 had been selected and reported switching to Python 3.12.
+- The assistant checked the official pandas release notes: pandas 2.3.3 was the first release generally compatible with Python 3.14, while this project pins pandas 2.2.3. A dependency-installation compatibility problem was a plausible explanation, not a log-confirmed diagnosis.
+- The assistant explained that Python 3.12 was the environment used for testing the pinned libraries; the app does not contain a hard-coded Python-version check.
+- After reporting the version change, the student reported that the app works.
+
+### Changes and verification limits
+
+- The student changed the deployment's Python selection from 3.14 to 3.12.
+- No app code or dependency versions were changed during this troubleshooting.
+- Successful cloud startup is recorded as the student's observation, not an independent visual or log verification by the assistant.
+- Public URL reported by the student: https://week4app.streamlit.app/
+- The final submission pre-flight remains to check the working app while signed out/incognito and exercise both controls.
+- Preserved this real troubleshooting exchange in the existing build log.
